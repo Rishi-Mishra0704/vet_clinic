@@ -1,59 +1,39 @@
 /*Queries that provide answers to the questions from all projects.*/
 
-SELECT * from animals WHERE name = 'Luna';
-SELECT * FROM animals WHERE name LIKE '%mon';
-SELECT name FROM animals WHERE data_of_birth BETWEEN '2016-01-01' AND '2019-12-31';
-SELECT name FROM animals WHERE neutered = true AND escape_attempts < 3;
-SELECT data_of_birth FROM animals WHERE name IN ('Agumon', 'Pikachu');
-SELECT name, escape_attempts FROM animals WHERE weight_kg > 10.5;
-SELECT * FROM animals WHERE neutered = true;
-SELECT * FROM animals WHERE name <> 'Gabumon';
-SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
+SELECT a.name
+FROM animals a
+JOIN owners o ON a.owner_id = o.id
+WHERE o.full_name = 'Melody Pond';
 
+SELECT a.name
+FROM animals a
+JOIN species s ON a.species_id = s.id
+WHERE s.name = 'Pokemon';
 
-BEGIN;
-UPDATE animals SET species = 'unspecified';
-SELECT * FROM animals;
-ROLLBACK;
-SELECT * FROM animals;
+SELECT o.full_name, a.name
+FROM owners o
+LEFT JOIN animals a ON a.owner_id = o.id
+ORDER BY o.full_name, a.name;
 
-BEGIN;
-UPDATE animals SET species = 'digimon' WHERE name LIKE '%mon' AND species <> 'digimon';
-UPDATE animals SET species = 'pokemon' WHERE species IS NULL;
-SELECT * FROM animals;
-COMMIT;
-SELECT * FROM animals;
+SELECT s.name, COUNT(*) AS animal_count
+FROM animals a
+JOIN species s ON a.species_id = s.id
+GROUP BY s.name;
 
+SELECT a.name
+FROM animals a
+JOIN species s ON a.species_id = s.id
+JOIN owners o ON a.owner_id = o.id
+WHERE s.name = 'Digimon' AND o.full_name = 'Jennifer Orwell';
 
-BEGIN;
-DELETE FROM animals;
-ROLLBACK;
-SELECT * FROM animals;
-SELECT COUNT(*) FROM animals;
+SELECT a.name
+FROM animals a
+JOIN owners o ON a.owner_id = o.id
+WHERE o.full_name = 'Dean Winchester' AND a.escape_attempts = 0;
 
-
--- Delete animals born after Jan 1st, 2022, savepoint, update weight, rollback, update negative weights, commit
-BEGIN;
-    DELETE FROM animals WHERE data_of_birth > '2022-01-01';
-    SAVEPOINT my_savepoint;
-    UPDATE animals SET weight_kg = weight_kg * -1;
-    ROLLBACK TO my_savepoint;
-    UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg < 0;
-COMMIT;
-
-SELECT * FROM animals;
-SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
-SELECT AVG(weight_kg) FROM animals;
-SELECT neutered, AVG(escape_attempts) as avg_attempts 
-FROM animals 
-GROUP BY neutered 
-ORDER BY avg_attempts DESC 
+SELECT o.full_name, COUNT(*) AS animal_count
+FROM owners o
+JOIN animals a ON a.owner_id = o.id
+GROUP BY o.id
+ORDER BY animal_count DESC
 LIMIT 1;
-SELECT species, MIN(weight_kg) as min_weight, MAX(weight_kg) as max_weight 
-FROM animals 
-GROUP BY species;
-SELECT species, AVG(escape_attempts) as avg_attempts 
-FROM animals 
-WHERE data_of_birth BETWEEN '1990-01-01' AND '2000-12-31' 
-GROUP BY species;
-
