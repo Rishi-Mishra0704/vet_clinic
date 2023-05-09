@@ -1,11 +1,23 @@
 /* Database schema to keep the structure of entire database. */
 
+CREATE TABLE species (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE owners (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    age INT
+);
+
 CREATE TABLE animals (
-    id BIGSERIAL NOT NULL PRIMARY KEY,
-    name varchar(100),
-    data_of_birth DATE,
-    escape_attempts INT,
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    escape_attempts INT NOT NULL DEFAULT 0,
     neutered BOOLEAN,
     weight_kg FLOAT,
-    species varchar(100)
+    species_id BIGINT REFERENCES species(id),
+    owner_id BIGINT REFERENCES owners(id)
 );
