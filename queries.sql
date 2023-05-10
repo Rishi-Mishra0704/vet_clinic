@@ -53,15 +53,11 @@ INNER JOIN animals AS a ON v.animal_id = a.id
 LEFT JOIN specializations AS sp ON ve.id = sp.vet_id AND a.species_id = sp.species_id
 WHERE sp.id IS NULL;
 
-SELECT s.name AS species_name, COUNT(*) AS total_visits
-FROM animals AS a
-INNER JOIN visits AS v ON a.id = v.animal_id
-INNER JOIN specializations AS sp ON sp.species_id = a.species_id
-INNER JOIN vets AS ve ON sp.vet_id = ve.id
-INNER JOIN species AS s ON sp.species_id = s.id
-WHERE a.owner_id = (
-SELECT id FROM owners WHERE full_name = 'Maisy Smith'
-)
-GROUP BY s.name
-ORDER BY total_visits DESC
-LIMIT 1;
+SELECT species.name, COUNT(*) as num_visits
+FROM visits
+JOIN animals ON visits.animal_id = animals.id
+JOIN vets ON visits.vet_id = vets.id
+JOIN species ON animals.species_id = species.id
+WHERE vets.name = 'Maisy Smith'
+GROUP BY species.name
+ORDER BY num_visits DESC;
