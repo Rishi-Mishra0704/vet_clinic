@@ -150,7 +150,7 @@ You can deploy this project using:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 <h1>Diagram</h1>
 <p>This diagram will help you to understand the relation between each table.<p/>
-
+<a href="https://drawsql.app/teams/rishis-team/diagrams/vet-clinic">Please click on this link for better understanding</a>
 
 ![drawSQL-vet-clinic-export-2023-05-15](https://github.com/Rishi-Mishra0704/vet_clinic/assets/114818980/486b8cca-d4ac-489e-8d68-064087af46f5)
 
