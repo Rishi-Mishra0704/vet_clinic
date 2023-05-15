@@ -148,9 +148,13 @@ You can deploy this project using:
 - [ ] **[Multiple_rows]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-## Diagram
+<h1>Diagram</h1>
 <p>This diagram will help you to understand the relation between each table.<p/>
-<iframe width="100%" height="500px" style="box-shadow: 0 2px 8px 0 rgba(63,69,81,0.16); border-radius:15px;" allowtransparency="true" allowfullscreen="true" scrolling="no" title="Embedded DrawSQL IFrame" frameborder="0" src="https://drawsql.app/teams/rishis-team/diagrams/vet-clinic/embed"></iframe>
+
+
+![drawSQL-vet-clinic-export-2023-05-15](https://github.com/Rishi-Mishra0704/vet_clinic/assets/114818980/486b8cca-d4ac-489e-8d68-064087af46f5)
+
+
 <!-- CONTRIBUTING -->
 
 ## 🤝 Contributing <a name="contributing"></a>
